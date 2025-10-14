@@ -1,0 +1,7 @@
+# robots.txt for SerenFlow
+
+User-agent: *
+Allow: /
+
+# Sitemap (optional, add when your site is hosted)
+# Sitemap: https://serenflow.com/sitemap.xml
