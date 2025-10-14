@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "yoga-landing-page/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "yoga-landing-page/dist" }
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "server/server.js" },
+    { "src": "/(.*)", "dest": "yoga-landing-page/dist/$1" }
+  ]
+}

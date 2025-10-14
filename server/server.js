@@ -7,44 +7,40 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
-// ✅ Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// ✅ Get the correct __dirname (needed for ES modules)
+// ✅ Fix __dirname (for ES modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Define the absolute path of your PDF file
+// ✅ Path to the PDF
 const pdfPath = path.resolve(__dirname, "YogaGuide.pdf");
 
-// ✅ Check if file exists (useful for debugging)
 if (!fs.existsSync(pdfPath)) {
   console.error("❌ PDF file not found at:", pdfPath);
 } else {
   console.log("✅ PDF found at:", pdfPath);
 }
 
-// ✅ Nodemailer transporter setup using environment variables
+// ✅ Nodemailer transporter
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.GMAIL_USER,      // set in .env
-    pass: process.env.GMAIL_PASSWORD,  // set in .env (App Password)
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASSWORD,
   },
 });
 
 // ✅ Email sending endpoint
-app.post("/send-guide", (req, res) => {
+app.post("/api/send-guide", (req, res) => {
   const { email } = req.body;
 
-  // Respond immediately so frontend doesn't wait
   res.status(202).json({ success: true, message: "Email is being sent..." });
 
-  // Send the email in the background
   const mailOptions = {
     from: `"SerenFlow" <${process.env.GMAIL_USER}>`,
     to: email,
@@ -58,11 +54,11 @@ app.post("/send-guide", (req, res) => {
     ],
   };
 
-  transporter.sendMail(mailOptions)
+  transporter
+    .sendMail(mailOptions)
     .then(() => console.log(`✅ Email sent successfully to ${email}`))
     .catch((error) => console.error("❌ Error sending email:", error));
 });
 
-// ✅ Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// ✅ Export app (for Vercel)
+export default app;
