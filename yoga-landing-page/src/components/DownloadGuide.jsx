@@ -9,39 +9,38 @@ const DownloadGuide = () => {
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!validateEmail(email)) {
-    setError("Please enter a valid email address.");
-    return;
-  }
-
-  setError("");
-  setLoading(true);
-
-  try {
-    const response = await fetch("/api/send-guide", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setSubmitted(true);
-    } else {
-      setError("Oops! Something went wrong. Please try again.");
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    setError("Unable to connect to the server. Please try again later.");
-  } finally {
-    setLoading(false);
-    setEmail("");
-  }
-};
 
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:5000/send-guide", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError("Oops! Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Unable to connect to the server. Please try again later.");
+    } finally {
+      setLoading(false);
+      setEmail("");
+    }
+  };
 
   return (
     <section
