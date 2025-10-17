@@ -1,6 +1,6 @@
 import React from "react";
 import Nav from "./Nav";
-import heroImage from "../assets/hero.webp";
+import heroImage from "/hero.webp";
 
 const Hero = () => {
   const handleScroll = (e, href) => {
