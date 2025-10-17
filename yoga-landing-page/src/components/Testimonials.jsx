@@ -56,14 +56,17 @@ const PrevArrow = ({ onClick }) => (
 );
 
 const Testimonials = () => {
-  const settings = {
+   const settings = {
     dots: true,
     infinite: true,
-    speed: 600,
+    speed: 800, // slightly slower = smoother
     slidesToShow: 1,
     slidesToScroll: 1,
-    adaptiveHeight: false,
-    lazyLoad: "ondemand",
+    adaptiveHeight: true, // prevents layout jump
+    lazyLoad: "progressive", // preloads next image for smoother transition
+    cssEase: "ease-in-out", // natural easing curve
+    pauseOnHover: true,
+    swipeToSlide: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
@@ -73,18 +76,13 @@ const Testimonials = () => {
           slidesToShow: 1,
           arrows: true,
           dots: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          arrows: true,
-          dots: true,
+          cssEase: "ease-in-out",
         },
       },
     ],
   };
+
+
 
   return (
     <section
