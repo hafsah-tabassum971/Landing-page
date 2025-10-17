@@ -62,7 +62,7 @@ const Testimonials = () => {
     speed: 800, // slightly slower = smoother
     slidesToShow: 1,
     slidesToScroll: 1,
-    adaptiveHeight: true, // prevents layout jump
+    adaptiveHeight: false, // prevents layout jump
     lazyLoad: "progressive", // preloads next image for smoother transition
     cssEase: "ease-in-out", // natural easing curve
     pauseOnHover: true,
