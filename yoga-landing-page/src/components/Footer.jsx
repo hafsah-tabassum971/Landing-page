@@ -82,19 +82,33 @@ const Footer = () => {
           >
             Follow Us
           </h3>
-          <ul
+ <ul
             className="flex justify-center md:justify-start gap-[clamp(0.8rem,2vw,1rem)]"
             role="list"
             aria-label="Social media links"
           >
             {[
-              { icon: FaFacebookF, label: "Facebook" },
-              { icon: FaTwitter, label: "Twitter" },
-              { icon: FaInstagram, label: "Instagram" },
-            ].map(({ icon: Icon, label }, idx) => (
+              {
+                icon: FaFacebookF,
+                label: "Facebook",
+                href: "https://www.facebook.com",
+              },
+              {
+                icon: FaTwitter,
+                label: "Twitter",
+                href: "https://twitter.com",
+              },
+              {
+                icon: FaInstagram,
+                label: "Instagram",
+                href: "https://www.instagram.com",
+              },
+            ].map(({ icon: Icon, label, href }, idx) => (
               <li key={idx} role="listitem">
                 <a
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={`Visit our ${label} page`}
                   className="flex items-center justify-center 
                              w-[clamp(2.5rem,5vw,2.75rem)] 
