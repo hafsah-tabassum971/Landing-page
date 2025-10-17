@@ -20,7 +20,7 @@ const DownloadGuide = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/send-guide", {
+      const response = await fetch("https://landing-page-backend-beige.vercel.app/send-guide", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

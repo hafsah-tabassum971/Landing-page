@@ -11,8 +11,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
+
+import cors from "cors";
+
+app.use(cors({
+  origin: "https://landing-page-frontend-psi.vercel.app", // your frontend
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+}));
+
 
 // ✅ Get the correct __dirname (needed for ES modules)
 const __filename = fileURLToPath(import.meta.url);
