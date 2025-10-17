@@ -26,23 +26,23 @@ const Hero = () => {
       <div className="relative flex flex-col lg:flex-row items-center justify-between h-full py-10 lg:px-24">
         {/* --- Left: Text Content --- */}
         <article
-          className="lg:w-1/2 text-center lg:text-left text-white space-y-6"
+          className="lg:w-1/2 text-left text-white space-y-6 max-sm:mx-6"
           aria-label="Yoga introduction"
         >
           <h1
             id="hero-heading"
-            className=" max-sm:mx-5 text-[clamp(2rem,4vw,3.75rem)] lg:text-[clamp(2rem,5vw,4.5rem)] font-extrabold leading-tight "
+            className="text-[clamp(2rem,4vw,3.75rem)] lg:text-[clamp(2rem,5vw,4.5rem)] font-extrabold leading-tight max-sm:mx-2"
           >
             Find Your Inner Peace with Yoga
           </h1>
-{/* //max-w-[clamp(18rem,40vw,28rem)] */}
-          <p className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-300 mx-auto max-sm:px-4 lg:mx-0 leading-relaxed">
+
+          <p className="text-[clamp(1rem,1.5vw,1.25rem)] text-gray-300 leading-relaxed max-sm:mx-2">
             Unlock calm, focus, and flexibility with our free yoga guide.
             Download your <strong>5-Minute Morning Flow</strong> and start each
             day with energy and mindfulness.
           </p>
 
-          <div className="flex justify-center lg:justify-start mt-8">
+          <div className="flex justify-start mt-8 max-sm:mx-2">
             <a
               href="#download"
               aria-label="Download your free yoga guide"
@@ -55,7 +55,7 @@ const Hero = () => {
 
           {/* ---- Stats Row ---- */}
           <section
-            className="mt-[clamp(2rem,4vw,3rem)] grid grid-cols-3 gap-[clamp(1rem,2vw,1.5rem)] max-w-[clamp(18rem,40vw,28rem)] mx-auto lg:mx-0"
+            className="mt-[clamp(2rem,4vw,3rem)] grid grid-cols-3 gap-[clamp(1rem,2vw,1.5rem)] max-w-[clamp(18rem,40vw,28rem)] max-sm:max-w-full max-sm:mx-2"
             aria-label="Yoga platform statistics"
           >
             {[
@@ -63,10 +63,7 @@ const Hero = () => {
               { num: "20K+", label: "Happy Practitioners" },
               { num: "3.5M+", label: "Minutes of Calm" },
             ].map((stat, i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center lg:items-start"
-              >
+              <div key={i} className="flex flex-col items-start">
                 <p className="text-[clamp(1.65rem,3vw,2.5rem)] font-bold text-white">
                   {stat.num}
                 </p>
