@@ -56,16 +56,18 @@ const Benefits = () => {
               className="w-full h-full object-cover"
             />
 
-            {/* Floating CTA Card */}
-            <aside
-              className="absolute -right-4 bottom-4 bg-red-500 text-white p-6 rounded-2xl shadow-lg max-w-xs"
-              aria-label="Call to action"
-            >
-              <p className="text-md opacity-90">
-                Get instant access to your <strong>5-Minute Yoga Guide</strong>{" "}
-                and feel refreshed every morning.
-              </p>
-            </aside>
+{/* Floating CTA Card */}
+<aside
+  className="absolute -right-4 bottom-4 bg-red-500 text-white 
+             p-6 rounded-2xl shadow-lg max-w-xs
+             max-sm:p-3 max-sm:max-w-[70%] max-sm:text-sm"
+  aria-label="Call to action"
+>
+  <p className="opacity-90 leading-relaxed">
+    Get instant access to your <strong>5-Minute Yoga Guide</strong> and feel refreshed every morning.
+  </p>
+</aside>
+
           </div>
         </figure>
 

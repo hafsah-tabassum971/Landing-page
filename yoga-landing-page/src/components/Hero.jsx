@@ -31,7 +31,7 @@ const Hero = () => {
         >
           <h1
             id="hero-heading"
-            className="text-[clamp(2.2rem,4vw,3.75rem)] lg:text-[clamp(3rem,5vw,4.5rem)] font-extrabold leading-tight"
+            className=" max-sm:mx-5 text-[clamp(2rem,4vw,3.75rem)] lg:text-[clamp(2rem,5vw,4.5rem)] font-extrabold leading-tight "
           >
             Find Your Inner Peace with Yoga
           </h1>
