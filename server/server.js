@@ -7,71 +7,68 @@ import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
-// ✅ Load environment variables from .env file
+// ✅ Load environment variables
 dotenv.config();
 
 const app = express();
-// app.use(cors());
-app.use(bodyParser.json());
 
-import cors from "cors";
-
+// ✅ CORS configuration
 app.use(cors({
-  origin: "https://landing-page-frontend-psi.vercel.app", // your frontend
+  origin: "https://landing-page-frontend-psi.vercel.app", // your frontend URL
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 }));
 
+app.use(bodyParser.json());
 
-// ✅ Get the correct __dirname (needed for ES modules)
+// ✅ Get __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Define the absolute path of your PDF file
+// ✅ PDF file path
 const pdfPath = path.resolve(__dirname, "YogaGuide.pdf");
 
-// ✅ Check if file exists (useful for debugging)
 if (!fs.existsSync(pdfPath)) {
   console.error("❌ PDF file not found at:", pdfPath);
 } else {
   console.log("✅ PDF found at:", pdfPath);
 }
 
-// ✅ Nodemailer transporter setup using environment variables
+// ✅ Nodemailer setup
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.GMAIL_USER,      // set in .env
-    pass: process.env.GMAIL_PASSWORD,  // set in .env (App Password)
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASSWORD, // Gmail App Password
   },
 });
 
-// ✅ Email sending endpoint
-app.post("/send-guide", (req, res) => {
+// ✅ Endpoint
+app.post("/send-guide", async (req, res) => {
   const { email } = req.body;
 
-  // Respond immediately so frontend doesn't wait
-  res.status(202).json({ success: true, message: "Email is being sent..." });
+  try {
+    const mailOptions = {
+      from: `"SerenFlow" <${process.env.GMAIL_USER}>`,
+      to: email,
+      subject: "Your 5-Minute Yoga Guide 🧘‍♀️",
+      text: "Thank you for joining SerenFlow! Here’s your 5-minute yoga guide.",
+      attachments: [
+        {
+          filename: "YogaGuide.pdf",
+          path: pdfPath,
+        },
+      ],
+    };
 
-  // Send the email in the background
-  const mailOptions = {
-    from: `"SerenFlow" <${process.env.GMAIL_USER}>`,
-    to: email,
-    subject: "Your 5-Minute Yoga Guide 🧘‍♀️",
-    text: "Thank you for joining SerenFlow! Here’s your 5-minute yoga guide to help you find calm and balance.",
-    attachments: [
-      {
-        filename: "YogaGuide.pdf",
-        path: pdfPath,
-      },
-    ],
-  };
-
-  transporter.sendMail(mailOptions)
-    .then(() => console.log(`✅ Email sent successfully to ${email}`))
-    .catch((error) => console.error("❌ Error sending email:", error));
+    await transporter.sendMail(mailOptions);
+    console.log(`✅ Email sent successfully to ${email}`);
+    res.status(200).json({ success: true, message: "Email sent successfully!" });
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+    res.status(500).json({ success: false, message: "Error sending email." });
+  }
 });
 
-// ✅ Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+// ✅ Export app for Vercel serverless
+export default app;
