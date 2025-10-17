@@ -26,7 +26,7 @@ const Hero = () => {
       <div className="relative flex flex-col lg:flex-row items-center justify-between h-full py-10 lg:px-24">
         {/* --- Left: Text Content --- */}
         <article
-          className="lg:w-1/2 text-left text-white space-y-6 max-sm:mx-6"
+          className="lg:w-1/2 text-left text-white space-y-6 max-sm:mx-5"
           aria-label="Yoga introduction"
         >
           <h1
